@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"context"
+	"time"
 	"github.com/joho/godotenv"
 	"gin-rest-api/lib/kafka"
 )
@@ -23,7 +24,11 @@ func main(){
 	// blocking
 	// so lets put the messages in a go routine
 
-	go appkafka.Producer(ctx)
-	appkafka.Consumer(ctx)
+	brokers := &[]string {"localhost:9892","localhost:9893", "localhost:9894" }
+	k_instance := appkafka.New("message-log", "my-group", 5, 10, 10, time.Second * 4, brokers)
+
+	go k_instance.Producer(ctx)
+	k_instance.Consumer(ctx)
+
 
 }

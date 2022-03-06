@@ -1,8 +1,7 @@
 package appkafka
 
 import (
-	"github.com/segmentio/kafka-go"
-	// "fmt"
+	"time"
 )
 
 type Kafka struct {
@@ -11,17 +10,22 @@ type Kafka struct {
 	minBytes int //
 	maxBytes int //
 	batchSize int
-	batchTimeout int
-	brokers *[]string{}
+	batchTimeout time.Duration
+	brokers *[]string
 }
 
-func GetBrokers(){
 
-	
-}
-func New(topic string, groupId string, minBytes int, maxBytes int, batchSize int, batchTimeout int, brokers *[]string){
+func New(topic string, groupId string, minBytes int, maxBytes int, batchSize int, batchTimeout time.Duration, brokers *[]string) *Kafka {
 
 	return &Kafka{
+
+		topic: topic,
+		groupId: groupId,
+		minBytes: minBytes,
+		maxBytes: maxBytes,
+		batchSize: batchSize,
+		batchTimeout: batchTimeout,
+		brokers: brokers,
 
 	}
 }

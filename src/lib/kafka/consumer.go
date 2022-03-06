@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func Consumer(ctx context.Context){
+func  (k *Kafka) Consumer(ctx context.Context){
 
 	conf := kafka.ReaderConfig{
 		Brokers: []string{ "localhost:9892","localhost:9893", "localhost:9894"},

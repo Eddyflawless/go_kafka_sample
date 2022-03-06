@@ -12,23 +12,19 @@ const (
 	topic          = "message-log"
 )
 
-func GetBrokerAddresses() []string {
 
-	return []string{ "localhost:9892","localhost:9893", "localhost:9894"}
-}
-
-func Producer(ctx context.Context) { 
+func (k *Kafka) Producer(ctx context.Context) { 
 
 	i := 0
 
 	w := kafka.NewWriter(kafka.WriterConfig{
-		Brokers: GetBrokerAddresses(),
-		Topic: topic,
+		Brokers: *(k.brokers),
+		Topic: k.topic,
 		// wait until we get 10 messages before writing
-		BatchSize: 10,
+		BatchSize: k.batchSize, //eg: 10
 		// no matter what happens, write all pending messages
 		// every 2 seconds
-		BatchTimeout: 2 * time.Second,
+		BatchTimeout: k.batchTimeout, //eg: 2 * time.Second
 	})
 
 	for { 
