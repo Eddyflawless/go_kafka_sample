@@ -1,1 +1,1 @@
-# gin_payment_processor
+# go-kafka-sample
