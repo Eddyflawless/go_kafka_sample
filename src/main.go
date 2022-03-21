@@ -4,12 +4,17 @@ import (
 	"log"
 	"context"
 	"time"
+	"fmt"
 	"github.com/joho/godotenv"
 	"gin-rest-api/lib/kafka"
 )
 
 
 func main(){
+
+	go func() {
+		fmt.Println("runs in the background")
+	}()
 
 	err := godotenv.Load(".env")
 
@@ -24,7 +29,9 @@ func main(){
 	// blocking
 	// so lets put the messages in a go routine
 
-	brokers := &[]string {"localhost:9892","localhost:9893", "localhost:9894" }
+	//"localhost:9892","localhost:9893", "localhost:9894" 
+	
+	brokers := &[]string {"localhost:29092" }
 	k_instance := appkafka.New("message-log", "my-group", 5, 10, 10, time.Second * 4, brokers)
 
 	go k_instance.Producer(ctx)
